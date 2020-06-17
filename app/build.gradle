@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.kotlin.kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '30.0.0'
+
+    defaultConfig {
+        applicationId 'net.rafaeltoledo.code'
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName '1.0.0'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures.viewBinding true
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+hilt {
+    enableTransformForLocalTests = true
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation "androidx.core:core-ktx:$versions.core"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.fragment:fragment-ktx:$versions.fragment"
+    implementation "androidx.activity:activity-ktx:$versions.activity"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+    implementation "androidx.recyclerview:recyclerview:$versions.recyclerview"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltx"
+    kapt "androidx.hilt:hilt-compiler:$versions.hiltx"
+
+    implementation "com.google.android.material:material:$versions.material"
+
+    implementation "com.google.dagger:hilt-android:$versions.hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.hilt"
+
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+    implementation "com.squareup.moshi:moshi:$versions.moshi"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
+    implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation "com.google.dagger:hilt-android-testing:$versions.hilt"
+    testAnnotationProcessor "com.google.dagger:hilt-android-compiler:$versions.hilt"
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hilt"
+    androidTestAnnotationProcessor "com.google.dagger:hilt-android-compiler:$versions.hilt"
+}

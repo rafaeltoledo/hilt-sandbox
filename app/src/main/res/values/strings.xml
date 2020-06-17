@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">StackOverflow</string>
+
+    <string name="button_try_again">Try Again</string>
+
+    <string name="nav_top_users" translatable="false">Top Users Screen</string>
+</resources>
