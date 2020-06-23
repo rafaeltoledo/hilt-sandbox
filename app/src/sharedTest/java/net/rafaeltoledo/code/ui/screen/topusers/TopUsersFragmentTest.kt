@@ -79,7 +79,7 @@ class TopUsersFragmentTest {
 
         server.takeRequest().apply {
             assertThat(path).isEqualTo("/2.2/users?order=desc&sort=reputation&site=stackoverflow&page=1")
-            assertThat(this.method).isEqualTo("GET")
+            assertThat(method).isEqualTo("GET")
         }
     }
 

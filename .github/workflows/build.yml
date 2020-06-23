@@ -7,7 +7,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      JAVA_TOOL_OPTIONS: "-Xmx5120m"
+      JAVA_TOOL_OPTIONS: "-Xmx5120m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
       GRADLE_OPTS: "-Xms1g -Xmx5120m -Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dkotlin.compiler.execution.strategy=in-process"
 
     steps:
@@ -18,7 +18,7 @@ jobs:
       - name: Install JDK
         uses: actions/setup-java@v1.3.0
         with:
-          java-version: 11.0.7
+          java-version: 1.8
       - name: Configure Gradle
         # Initial gradle configuration, install dependencies, etc
         run: ./gradlew help

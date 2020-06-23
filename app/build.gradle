@@ -2,15 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'jacoco'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion '30.0.0'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
         applicationId 'net.rafaeltoledo.code'
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 29
         versionCode 1
         versionName '1.0.0'
 
@@ -123,9 +124,13 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$versions.hilt"
 }
 
-def classes = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug")
+def classes = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: ['**/*inlined*.*', '**/*JsonAdapter.*', '**/HiltTestActivity.*'])
 def sources = files("$projectDir/src/main/java")
 def report = "$buildDir/reports/jacoco/report.xml"
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
 
 task createCoverageReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
