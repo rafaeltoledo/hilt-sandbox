@@ -38,10 +38,6 @@ object AppModule {
 
     @Provides
     @Reusable
-    fun provideApiHost() = "https://api.stackexchange.com".toHttpUrlOrNull()!!
-
-    @Provides
-    @Reusable
     fun provideRetrofit(client: OkHttpClient, host: HttpUrl, moshi: Moshi) = Retrofit.Builder()
         .client(client)
         .baseUrl(host)
@@ -51,4 +47,12 @@ object AppModule {
     @Provides
     @Reusable
     fun provideApi(retrofit: Retrofit) = retrofit.create<StackOverflowApi>()
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+object NetworkModule {
+    @Provides
+    @Reusable
+    fun provideApiHost() = "https://api.stackexchange.com".toHttpUrlOrNull()!!
 }
