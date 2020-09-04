@@ -24,11 +24,11 @@ jobs:
       - name: Build project
         run: ./gradlew assemble testDebugUnitTest --stacktrace
       - name: Upload test reports
-          if: always()
-          uses: actions/upload-artifact@v2
-          with:
-            name: test-reports
-            path: ${{ env.SAMPLE_PATH }}/app/build/reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: ${{ env.SAMPLE_PATH }}/app/build/reports
 
   instrumented-tests:
     needs: build
