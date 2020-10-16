@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import net.rafaeltoledo.code.BuildConfig
 import net.rafaeltoledo.code.api.StackOverflowApi
 import okhttp3.HttpUrl
@@ -17,7 +17,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
@@ -34,11 +34,11 @@ object AppModule {
 
     @Provides
     @Reusable
-    fun provideMoshi() = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
     @Reusable
-    fun provideRetrofit(client: OkHttpClient, host: HttpUrl, moshi: Moshi) = Retrofit.Builder()
+    fun provideRetrofit(client: OkHttpClient, host: HttpUrl, moshi: Moshi): Retrofit = Retrofit.Builder()
         .client(client)
         .baseUrl(host)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -50,7 +50,7 @@ object AppModule {
 }
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
     @Provides
     @Reusable

@@ -70,6 +70,8 @@ def bothTestImplementation(String dependency) {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+
     implementation "androidx.core:core-ktx:$versions.core"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "androidx.fragment:fragment-ktx:$versions.fragment"
@@ -77,8 +79,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerview"
-    implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
-    implementation "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltx"
     kapt "androidx.hilt:hilt-compiler:$versions.hiltx"
@@ -100,23 +102,23 @@ dependencies {
 
     debugImplementation "androidx.fragment:fragment-testing:$versions.fragment"
 
-    bothTestImplementation 'androidx.test:core-ktx:1.3.0'
-    bothTestImplementation 'androidx.test.ext:junit-ktx:1.1.2'
-    bothTestImplementation 'androidx.test.ext:truth:1.3.0'
+    bothTestImplementation 'androidx.test:core-ktx:1.3.1-alpha02'
+    bothTestImplementation 'androidx.test.ext:junit-ktx:1.1.3-alpha02'
+    bothTestImplementation 'androidx.test.ext:truth:1.3.1-alpha02'
     bothTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
-    bothTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    bothTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
-    bothTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
-    bothTestImplementation 'androidx.test:runner:1.3.0'
-    bothTestImplementation 'androidx.test:rules:1.3.0'
+    bothTestImplementation 'androidx.test.espresso:espresso-core:3.4.0-alpha02'
+    bothTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0-alpha02'
+    bothTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0-alpha02'
+    bothTestImplementation 'androidx.test:runner:1.3.1-alpha02'
+    bothTestImplementation 'androidx.test:rules:1.3.1-alpha02'
     bothTestImplementation "com.squareup.okhttp3:mockwebserver:$versions.okhttp"
     bothTestImplementation 'org.robolectric:annotations:4.4'
     bothTestImplementation "com.google.dagger:hilt-android-testing:$versions.hilt"
 
     testImplementation 'org.robolectric:robolectric:4.4'
-    testImplementation 'io.mockk:mockk:1.10.0'
+    testImplementation 'io.mockk:mockk:1.10.2'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1'
     kaptTest "com.google.dagger:hilt-android-compiler:$versions.hilt"
 
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5'
@@ -125,11 +127,14 @@ dependencies {
 }
 
 def classes = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: ['**/*inlined*.*', '**/*JsonAdapter.*', '**/HiltTestActivity.*'])
-def sources = files("$projectDir/src/main/java")
+def sources = files("$projectDir/src/main/java", "$buildDir/generated/source/kapt/debug/net.rafaeltoledo.code")
 def report = "$buildDir/reports/jacoco/report.xml"
 
 tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
+    jacoco {
+        includeNoLocationClasses = true
+        excludes = ['jdk.internal.*']
+    }
 }
 
 task createCoverageReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {

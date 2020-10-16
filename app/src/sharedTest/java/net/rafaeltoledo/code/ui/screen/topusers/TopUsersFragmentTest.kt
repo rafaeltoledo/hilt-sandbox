@@ -13,15 +13,16 @@ import com.jakewharton.espresso.OkHttp3IdlingResource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
 import dagger.hilt.android.testing.UninstallModules
+import dagger.hilt.components.SingletonComponent
 import net.rafaeltoledo.code.R
 import net.rafaeltoledo.code.di.NetworkModule
 import net.rafaeltoledo.code.launchFragmentInHiltContainer
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
@@ -92,10 +93,10 @@ class TopUsersFragmentTest {
     }
 }
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 object TestModule {
-    var url: HttpUrl = "http://localhost".toHttpUrlOrNull()!!
+    var url: HttpUrl = "http://localhost".toHttpUrl()
 
     @Provides
     fun mockWebServerHost() = url
