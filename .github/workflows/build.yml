@@ -38,7 +38,7 @@ jobs:
       GRADLE_OPTS: "-Xms1g -Xmx5120m -Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dkotlin.compiler.execution.strategy=in-process"
     strategy:
       matrix:
-        api-level: [21, 23, 26, 29, 30]
+        api-level: [21, 23, 26, 29]
 
     steps:
       - name: Checkout
