@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2.2.1
         with:
           name: test-reports
-          path: ${{ env.SAMPLE_PATH }}/app/build/reports
+          path: ${{ env.GITHUB_WORKSPACE }}/app/build/reports
 
   instrumented-tests:
     needs: build
@@ -62,4 +62,4 @@ jobs:
         uses: actions/upload-artifact@v2.2.1
         with:
           name: test-reports
-          path: ${{ env.SAMPLE_PATH }}/app/build/reports
+          path: ${{ env.GITHUB_WORKSPACE }}/app/build/reports
