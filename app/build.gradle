@@ -116,7 +116,7 @@ dependencies {
     bothTestImplementation "com.google.dagger:hilt-android-testing:$versions.hilt"
 
     testImplementation "org.robolectric:robolectric:$versions.robolectric"
-    testImplementation 'io.mockk:mockk:1.10.2'
+    testImplementation 'io.mockk:mockk:1.10.3-jdk8'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
     kaptTest "com.google.dagger:hilt-android-compiler:$versions.hilt"
