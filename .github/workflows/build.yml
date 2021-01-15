@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew assemble testDebugUnitTest --stacktrace
       - name: Upload test reports
         if: always()
-        uses: actions/upload-artifact@v2.2.1
+        uses: actions/upload-artifact@v2.2.2
         with:
           name: test-reports
           path: ./app/build/reports
@@ -50,7 +50,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Run instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2.13.0
+        uses: reactivecircus/android-emulator-runner@v2.14.3
         with:
           api-level: ${{ matrix.api-level }}
           target: google_apis
@@ -59,7 +59,7 @@ jobs:
           script: ./gradlew connectedCheck --stacktrace
       - name: Upload test reports
         if: always()
-        uses: actions/upload-artifact@v2.2.1
+        uses: actions/upload-artifact@v2.2.2
         with:
           name: test-reports
           path: ./app/build/reports
