@@ -1,14 +1,15 @@
 package net.rafaeltoledo.code.ui.screen.topusers
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import net.rafaeltoledo.code.api.StackOverflowApi
 import net.rafaeltoledo.code.api.User
 import net.rafaeltoledo.code.ui.BaseViewModel
+import javax.inject.Inject
 
-class TopUsersViewModel @ViewModelInject constructor(private val api: StackOverflowApi) :
-    BaseViewModel() {
+@HiltViewModel
+class TopUsersViewModel @Inject constructor(private val api: StackOverflowApi) : BaseViewModel() {
 
     private val _result = MutableLiveData<List<User>>()
     val result: LiveData<List<User>>

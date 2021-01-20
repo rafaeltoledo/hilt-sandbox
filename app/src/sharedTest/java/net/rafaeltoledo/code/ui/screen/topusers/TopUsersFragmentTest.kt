@@ -18,6 +18,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
 import dagger.hilt.android.testing.UninstallModules
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 import net.rafaeltoledo.code.R
 import net.rafaeltoledo.code.di.NetworkModule
 import net.rafaeltoledo.code.launchFragmentInHiltContainer
@@ -33,7 +34,6 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import javax.inject.Inject
 
-@UninstallModules(NetworkModule::class)
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 @Config(application = HiltTestApplication::class)
@@ -93,7 +93,10 @@ class TopUsersFragmentTest {
     }
 }
 
-@InstallIn(SingletonComponent::class)
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [NetworkModule::class],
+)
 @Module
 object TestModule {
     var url: HttpUrl = "http://localhost".toHttpUrl()
