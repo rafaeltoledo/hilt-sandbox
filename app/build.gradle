@@ -30,6 +30,10 @@ android {
     buildFeatures.viewBinding true
 
     buildTypes {
+        debug {
+            multiDexEnabled true
+        }
+
         release {
             signingConfig signingConfigs.debug
             minifyEnabled true
