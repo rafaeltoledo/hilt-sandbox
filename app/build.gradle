@@ -69,7 +69,6 @@ def bothTestImplementation(String dependency) {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
     implementation "androidx.core:core-ktx:$versions.core"
