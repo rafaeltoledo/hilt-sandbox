@@ -1,22 +1,21 @@
 buildscript {
     ext.versions = [
-            kotlin      : '1.5.32',
-            coroutines  : '1.5.2',
-            dagger      : '2.40.3',
-            activity    : '1.4.0',
-            fragment    : '1.4.0',
-            lifecycle   : '2.4.0',
+            kotlin      : '1.7.10',
+            coroutines  : '1.6.4',
+            dagger      : '2.43.2',
+            activity    : '1.5.1',
+            fragment    : '1.5.2',
+            lifecycle   : '2.5.1',
             recyclerview: '1.2.1',
-            navigation  : '2.3.5',
-            core        : '1.7.0',
-            appcompat   : '1.4.0',
-            material    : '1.4.0',
-            okhttp      : '4.9.3',
+            navigation  : '2.5.2',
+            core        : '1.9.0',
+            appcompat   : '1.5.1',
+            material    : '1.6.1',
+            okhttp      : '4.10.0',
             retrofit    : '2.9.0',
-            moshi       : '1.12.0',
-            glide       : '4.12.0',
-            espresso    : '3.5.0-alpha03',
-            robolectric : '4.7.2',
+            moshi       : '1.14.0',
+            espresso    : '3.5.0-alpha07',
+            robolectric : '4.8.2',
     ]
 
     repositories {
@@ -25,7 +24,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$versions.dagger"
     }
@@ -42,7 +41,7 @@ allprojects {
         resolutionStrategy {
             eachDependency { details ->
                 if (details.requested.group == 'org.jacoco') {
-                    details.useVersion '0.8.7'
+                    details.useVersion '0.8.8'
                 }
             }
         }

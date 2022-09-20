@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import net.rafaeltoledo.code.api.Collection
 import net.rafaeltoledo.code.api.StackOverflowApi
@@ -40,7 +40,7 @@ class TopUsersViewModelTest {
     }
 
     @Test
-    fun onApiSuccess_publishesTheDataOnLiveData() = runBlockingTest {
+    fun onApiSuccess_publishesTheDataOnLiveData() = runTest {
         val api: StackOverflowApi = mockk()
         val viewModel = TopUsersViewModel(api)
 
