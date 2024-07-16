@@ -1,8 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'org.jetbrains.kotlin.android'
-apply plugin: 'org.jetbrains.kotlin.kapt'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'jacoco'
+plugins {
+    alias libs.plugins.android.application
+    alias libs.plugins.hilt.android
+    alias libs.plugins.kotlin.android
+    alias libs.plugins.kotlin.kapt
+    id 'jacoco'
+}
 
 android {
     compileSdk 33
