@@ -14,7 +14,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
+          cache: 'gradle'
 
       - name: Configure Gradle
         # Initial gradle configuration, install dependencies, etc
@@ -36,7 +37,7 @@ jobs:
 
     strategy:
       matrix:
-        api-level: [21, 23, 26, 29, 30, 31]
+        api-level: [24, 26, 29, 31, 34]
 
     steps:
       - name: Checkout
@@ -52,7 +53,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
+          cache: 'gradle'
 
       - name: Run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
