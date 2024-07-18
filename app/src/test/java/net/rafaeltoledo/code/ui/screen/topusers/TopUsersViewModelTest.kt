@@ -2,8 +2,6 @@ package net.rafaeltoledo.code.ui.screen.topusers
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
-import io.mockk.coEvery
-import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -18,6 +16,10 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import java.util.concurrent.Executors
 
 @ExperimentalCoroutinesApi
@@ -41,10 +43,10 @@ class TopUsersViewModelTest {
 
     @Test
     fun onApiSuccess_publishesTheDataOnLiveData() = runTest {
-        val api: StackOverflowApi = mockk()
+        val api: StackOverflowApi = mock()
         val viewModel = TopUsersViewModel(api)
 
-        coEvery { api.fetchUsers(any()) } returns Collection(listOf(
+        whenever(api.fetchUsers(any())) doReturn Collection(listOf(
             User("", "", "", ""),
             User("", "", "", "")
         ), false)

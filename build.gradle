@@ -10,7 +10,7 @@ allprojects {
         resolutionStrategy {
             eachDependency { details ->
                 if (details.requested.group == 'org.jacoco') {
-                    details.useVersion '0.8.8'
+                    details.useVersion '0.8.12'
                 }
             }
         }

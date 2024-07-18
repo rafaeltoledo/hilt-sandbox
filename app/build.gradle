@@ -7,26 +7,17 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
     namespace 'net.rafaeltoledo.code'
 
     defaultConfig {
         applicationId 'net.rafaeltoledo.code'
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName '1.0.0'
 
-        testInstrumentationRunner 'net.rafaeltoledo.code.TestRunner'
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildFeatures {
@@ -35,10 +26,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            multiDexEnabled true
-        }
-
         release {
             signingConfig signingConfigs.debug
             minifyEnabled true
@@ -64,64 +51,67 @@ android {
     }
 }
 
+kotlin {
+    jvmToolchain 17
+}
+
 kapt {
     correctErrorTypes true
 }
 
-def bothTestImplementation(String dependency) {
+def bothTestImplementation(dependency) {
     project.dependencies.add('testImplementation', dependency)
     project.dependencies.add('androidTestImplementation', dependency)
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${libs.versions.kotlinx.coroutines.get()}"
+    implementation libs.kotlinx.coroutines.android
 
-    implementation "androidx.core:core-ktx:${libs.versions.androidx.core.get()}"
-    implementation "androidx.appcompat:appcompat:${libs.versions.androidx.appcompat.get()}"
-    implementation "androidx.fragment:fragment-ktx:${libs.versions.androidx.fragment.get()}"
-    implementation "androidx.activity:activity-ktx:${libs.versions.androidx.activity.get()}"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${libs.versions.androidx.lifecycle.get()}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${libs.versions.androidx.lifecycle.get()}"
-    implementation "androidx.recyclerview:recyclerview:${libs.versions.androidx.recyclerview.get()}"
-    implementation "androidx.navigation:navigation-fragment-ktx:${libs.versions.androidx.navigation.get()}"
-    implementation "androidx.navigation:navigation-ui-ktx:${libs.versions.androidx.navigation.get()}"
+    implementation libs.androidx.core
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.fragment
+    implementation libs.androidx.activity
+    implementation libs.androidx.lifecycle.livedata
+    implementation libs.androidx.lifecycle.viewmodel
+    implementation libs.androidx.navigation.fragment
+    implementation libs.androidx.navigation.ui
+    implementation libs.androidx.recyclerview
 
-    implementation "com.google.android.material:material:${libs.versions.material.get()}"
+    implementation libs.google.material
 
-    implementation "com.google.dagger:hilt-android:${libs.versions.dagger.get()}"
-    kapt "com.google.dagger:hilt-android-compiler:${libs.versions.dagger.get()}"
+    implementation libs.hilt.android
+    kapt libs.hilt.android.compiler
 
-    implementation "com.squareup.retrofit2:retrofit:${libs.versions.retrofit.get()}"
-    implementation "com.squareup.retrofit2:converter-moshi:${libs.versions.retrofit.get()}"
-    implementation "com.squareup.moshi:moshi:${libs.versions.moshi.get()}"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:${libs.versions.moshi.get()}"
-    implementation "com.squareup.okhttp3:okhttp:${libs.versions.okhttp.get()}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${libs.versions.okhttp.get()}"
+    implementation libs.square.okhttp
+    implementation libs.square.okhttp.logging
+    implementation libs.square.retrofit
+    implementation libs.square.retrofit.moshi
+    implementation libs.square.moshi
 
-    debugImplementation "androidx.fragment:fragment-testing:${libs.versions.androidx.fragment.get()}"
+    debugImplementation libs.androidx.fragment.testing.manifest
 
-    bothTestImplementation 'androidx.test:core-ktx:1.5.0'
-    bothTestImplementation 'androidx.test.ext:junit-ktx:1.1.4'
-    bothTestImplementation 'androidx.test.ext:truth:1.5.0'
-    bothTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
-    bothTestImplementation "androidx.test.espresso:espresso-core:${libs.versions.androidx.espresso.get()}"
-    bothTestImplementation "androidx.test.espresso:espresso-contrib:${libs.versions.androidx.espresso.get()}"
-    bothTestImplementation "androidx.test.espresso:espresso-intents:${libs.versions.androidx.espresso.get()}"
-    bothTestImplementation 'androidx.test:runner:1.5.0'
-    bothTestImplementation 'androidx.test:rules:1.4.1'
-    bothTestImplementation "com.squareup.okhttp3:mockwebserver:${libs.versions.okhttp.get()}"
-    bothTestImplementation "org.robolectric:annotations:${libs.versions.robolectric.get()}"
-    bothTestImplementation "com.google.dagger:hilt-android-testing:${libs.versions.dagger.get()}"
+    bothTestImplementation libs.androidx.fragment.testing
+    bothTestImplementation libs.androidx.test.core
+    bothTestImplementation libs.androidx.test.rules
+    bothTestImplementation libs.androidx.test.runner
+    bothTestImplementation libs.androidx.test.junit
+    bothTestImplementation libs.androidx.test.truth
+    bothTestImplementation libs.square.okhttp.idlingresource
+    bothTestImplementation libs.androidx.test.espresso.core
+    bothTestImplementation libs.androidx.test.espresso.contrib
+    bothTestImplementation libs.androidx.test.espresso.intents
+    bothTestImplementation libs.square.okhttp.mockwebserver
+    bothTestImplementation libs.robolectric.annotations
+    bothTestImplementation libs.hilt.android.testing
 
-    testImplementation "org.robolectric:robolectric:${libs.versions.robolectric.get()}"
-    testImplementation 'io.mockk:mockk:1.12.8'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${libs.versions.kotlinx.coroutines.get()}"
-    kaptTest "com.google.dagger:hilt-android-compiler:${libs.versions.dagger.get()}"
+    testImplementation libs.robolectric
+    testImplementation libs.mockito.kotlin
+    testImplementation libs.androidx.arch.core.testing
+    testImplementation libs.kotlinx.coroutines.test
+    kaptTest libs.hilt.android.compiler
 
-    androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5'
-    androidTestUtil 'androidx.test:orchestrator:1.4.2'
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:${libs.versions.dagger.get()}"
+    androidTestUtil libs.androidx.test.orchestrator
+    kaptAndroidTest libs.hilt.android.compiler
 }
 
 def classes = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: ['**/*inlined*.*', '**/*JsonAdapter.*', '**/HiltTestActivity.*'])
