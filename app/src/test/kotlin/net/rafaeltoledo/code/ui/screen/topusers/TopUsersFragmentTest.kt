@@ -9,27 +9,28 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
-import com.jakewharton.espresso.OkHttp3IdlingResource
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
-import dagger.hilt.android.testing.UninstallModules
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import net.rafaeltoledo.code.R
 import net.rafaeltoledo.code.di.NetworkModule
-import net.rafaeltoledo.code.launchFragmentInHiltContainer
+import net.rafaeltoledo.code.ui.util.OkHttp3IdlingResource
+import net.rafaeltoledo.code.ui.util.launchFragmentInHiltContainer
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.Matchers.not
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.BeforeClass
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import javax.inject.Inject
@@ -55,7 +56,7 @@ class TopUsersFragmentTest {
         hiltRule.inject()
 
         TestModule.url = server.url("/")
-        resource = OkHttp3IdlingResource.create("OkHttp", client)
+        resource = OkHttp3IdlingResource("OkHttp", client)
         IdlingRegistry.getInstance().register(resource)
     }
 

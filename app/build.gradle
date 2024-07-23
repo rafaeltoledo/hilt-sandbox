@@ -35,7 +35,7 @@ android {
     }
 
     sourceSets {
-        final sharedTestDir = 'src/sharedTest/java'
+        final sharedTestDir = 'src/sharedTest/kotlin'
         final sharedResourcesDir = 'src/sharedTest/json'
         test.java.srcDirs += sharedTestDir
         test.resources.srcDir(sharedResourcesDir)
@@ -57,11 +57,6 @@ kotlin {
 
 kapt {
     correctErrorTypes true
-}
-
-def bothTestImplementation(dependency) {
-    project.dependencies.add('testImplementation', dependency)
-    project.dependencies.add('androidTestImplementation', dependency)
 }
 
 dependencies {
@@ -90,19 +85,18 @@ dependencies {
 
     debugImplementation libs.androidx.fragment.testing.manifest
 
-    bothTestImplementation libs.androidx.fragment.testing
-    bothTestImplementation libs.androidx.test.core
-    bothTestImplementation libs.androidx.test.rules
-    bothTestImplementation libs.androidx.test.runner
-    bothTestImplementation libs.androidx.test.junit
-    bothTestImplementation libs.androidx.test.truth
-    bothTestImplementation libs.square.okhttp.idlingresource
-    bothTestImplementation libs.androidx.test.espresso.core
-    bothTestImplementation libs.androidx.test.espresso.contrib
-    bothTestImplementation libs.androidx.test.espresso.intents
-    bothTestImplementation libs.square.okhttp.mockwebserver
-    bothTestImplementation libs.robolectric.annotations
-    bothTestImplementation libs.hilt.android.testing
+    testImplementation libs.androidx.fragment.testing
+    testImplementation libs.androidx.test.core
+    testImplementation libs.androidx.test.rules
+    testImplementation libs.androidx.test.runner
+    testImplementation libs.androidx.test.junit
+    testImplementation libs.androidx.test.truth
+    testImplementation libs.androidx.test.espresso.core
+    testImplementation libs.androidx.test.espresso.contrib
+    testImplementation libs.androidx.test.espresso.intents
+    testImplementation libs.square.okhttp.mockwebserver
+    testImplementation libs.robolectric.annotations
+    testImplementation libs.hilt.android.testing
 
     testImplementation libs.robolectric
     testImplementation libs.mockito.kotlin

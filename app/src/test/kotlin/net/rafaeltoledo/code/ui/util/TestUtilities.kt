@@ -1,4 +1,4 @@
-package net.rafaeltoledo.code
+package net.rafaeltoledo.code.ui.util
 
 import android.content.ComponentName
 import android.content.Intent
@@ -9,9 +9,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
+import androidx.test.espresso.IdlingResource
+import net.rafaeltoledo.code.HiltTestActivity
+import okhttp3.OkHttpClient
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+import kotlin.concurrent.Volatile
 
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,
@@ -65,4 +69,30 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
 
         fragment.action()
     }
+}
+
+class OkHttp3IdlingResource(
+    private val name: String,
+    client: OkHttpClient,
+) : IdlingResource {
+
+    @Volatile
+    private var callback: IdlingResource.ResourceCallback? = null
+
+    private val dispatcher = client.dispatcher
+
+    init {
+        dispatcher.idleCallback = Runnable {
+            callback?.onTransitionToIdle()
+        }
+    }
+
+    override fun getName(): String = name
+
+    override fun isIdleNow(): Boolean = dispatcher.runningCallsCount() == 0
+
+    override fun registerIdleTransitionCallback(callback: IdlingResource.ResourceCallback?) {
+        this.callback = callback
+    }
+
 }

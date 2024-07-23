@@ -11,7 +11,7 @@ import kotlinx.coroutines.test.setMain
 import net.rafaeltoledo.code.api.Collection
 import net.rafaeltoledo.code.api.StackOverflowApi
 import net.rafaeltoledo.code.api.User
-import net.rafaeltoledo.code.getOrAwaitValue
+import net.rafaeltoledo.code.ui.util.getOrAwaitValue
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -46,10 +46,12 @@ class TopUsersViewModelTest {
         val api: StackOverflowApi = mock()
         val viewModel = TopUsersViewModel(api)
 
-        whenever(api.fetchUsers(any())) doReturn Collection(listOf(
-            User("", "", "", ""),
-            User("", "", "", "")
-        ), false)
+        whenever(api.fetchUsers(any())) doReturn Collection(
+            listOf(
+                User("", "", "", ""),
+                User("", "", "", "")
+            ), false
+        )
 
         viewModel.fetchUsers()
 
