@@ -1,6 +1,7 @@
 package net.rafaeltoledo.code.di
 
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -34,7 +35,9 @@ object AppModule {
 
     @Provides
     @Reusable
-    fun provideMoshi(): Moshi = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     @Provides
     @Reusable
