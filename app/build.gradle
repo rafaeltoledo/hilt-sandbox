@@ -2,7 +2,7 @@ plugins {
     alias libs.plugins.android.application
     alias libs.plugins.hilt.android
     alias libs.plugins.kotlin.android
-    alias libs.plugins.kotlin.kapt
+    alias libs.plugins.google.ksp
     id 'jacoco'
 }
 
@@ -55,10 +55,6 @@ kotlin {
     jvmToolchain 17
 }
 
-kapt {
-    correctErrorTypes true
-}
-
 dependencies {
     implementation libs.kotlinx.coroutines.android
 
@@ -75,7 +71,7 @@ dependencies {
     implementation libs.google.material
 
     implementation libs.hilt.android
-    kapt libs.hilt.android.compiler
+    ksp libs.hilt.android.compiler
 
     implementation libs.square.okhttp
     implementation libs.square.okhttp.logging
@@ -102,10 +98,10 @@ dependencies {
     testImplementation libs.mockito.kotlin
     testImplementation libs.androidx.arch.core.testing
     testImplementation libs.kotlinx.coroutines.test
-    kaptTest libs.hilt.android.compiler
+    kspTest libs.hilt.android.compiler
 
     androidTestUtil libs.androidx.test.orchestrator
-    kaptAndroidTest libs.hilt.android.compiler
+    kspAndroidTest libs.hilt.android.compiler
 }
 
 def classes = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: ['**/*inlined*.*', '**/*JsonAdapter.*', '**/HiltTestActivity.*'])
