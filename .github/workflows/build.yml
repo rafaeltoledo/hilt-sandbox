@@ -14,15 +14,15 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: Configure Gradle
         # Initial gradle configuration, install dependencies, etc
-        run: ./gradlew help
+        run: ./gradlew help -Dorg.gradle.jvmargs='-Xmx4g -Xms512m' -Dorg.gradle.workers.max=2
 
       - name: Build project
-        run: ./gradlew assemble testDebugUnitTest --stacktrace
+        run: ./gradlew assemble testDebugUnitTest -Dorg.gradle.jvmargs='-Xmx4g -Xms512m' -Dorg.gradle.workers.max=2 --stacktrace
 
       - name: Upload test reports
         if: always()
@@ -54,7 +54,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: Run instrumentation tests

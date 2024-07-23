@@ -51,8 +51,12 @@ android {
     }
 }
 
+hilt {
+    enableTransformForLocalTests true
+}
+
 kotlin {
-    jvmToolchain 17
+    jvmToolchain 21
 }
 
 dependencies {
@@ -108,14 +112,15 @@ def classes = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: ['**
 def sources = files("$projectDir/src/main/java", "$buildDir/generated/source/kapt/debug/net.rafaeltoledo.code")
 def report = "$buildDir/reports/jacoco/report.xml"
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     jacoco {
         includeNoLocationClasses = true
         excludes = ['jdk.internal.*']
     }
 }
 
-task createCoverageReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+tasks.register('createCoverageReport', JacocoReport) {
+    dependsOn('testDebugUnitTest')
 
     sourceDirectories.setFrom(sources)
     classDirectories.setFrom(files(classes))
